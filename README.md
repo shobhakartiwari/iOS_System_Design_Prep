@@ -30,6 +30,11 @@ Design a photo-sharing app for iOS where users can upload photos, view a feed of
 ---
 
 ## Requirements
+Let’s Start Fresh: Understand the Problem
+
+Imagine the interviewer says, “Design a photo-sharing app for iOS.” First thing I’d do is slow down and clarify what we’re building. I’d ask: “Are we talking Instagram vibes—uploading, feeds, likes? Any specific features like stories or filters? And who’s using it—hundreds of users or millions?” Let’s assume they say: “Users upload photos, see a feed, like/comment, and we’re targeting a decent-sized audience, maybe a million users eventually.”
+
+Cool, so now we’ve got a rough idea. Let’s break it into functional and non-functional requirements like you said—it’s a solid way to keep things organized.
 
 ### Functional Requirements
 - **Upload Photos**: Users can select or capture photos and share them.
