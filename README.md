@@ -1,7 +1,8 @@
-# iOS System Design Interview Prep: Photo-Sharing App
+# iOS System Design Interview Prep: Photo-Sharing App 
 
 This README outlines a high-level system design approach for an iOS-based photo-sharing app, tailored for iOS system design interview prep. It breaks down functional and non-functional requirements, provides an iOS-centric architecture, and highlights key considerations like scalability, caching, and accessibility. Perfect for practicing how to think through system design questions with an iOS twist!
 
+- This repository created and managed by [Shobhakar Tiwari](https://topmate.io/shobhakartiwari) 
 ---
 
 ## Table of Contents
