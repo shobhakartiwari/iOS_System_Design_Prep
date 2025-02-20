@@ -52,3 +52,69 @@ The app consists of:
 - **iOS Client**: Handles UI, local storage, and network requests.
 - **Backend**: Manages photo storage, user data, and feed generation (assumed simple for this exercise).
 - **Network**: RESTful API connects the client and backend.
+
+
+---
+
+## iOS Implementation Details
+
+### Upload Photos
+- **Flow**: User picks a photo or snaps one, app compresses it, and sends it to the backend.
+- **iOS Tech**:
+  - `PHPicker` or `UIImagePickerController` for selection.
+  - `AVFoundation`/`Core Image` for compression (e.g., max 1MB).
+  - `URLSession` with async/await for background uploads.
+- **Scale**: Queue offline uploads via `OperationQueue`.
+- **Accessibility**: VoiceOver labels for buttons.
+
+### Feed
+- **Flow**: Scrollable list of photos from followed users, paginated.
+- **iOS Tech**:
+  - SwiftUI `LazyVStack` (or UIKit `UICollectionView`) for efficient scrolling.
+  - REST API: `GET /feed?page=1&limit=20`.
+  - Cache thumbnails in `NSCache` or Core Data.
+- **Scale**: Paginate API; limit cache size (e.g., 100MB).
+- **Accessibility**: Alt text for images, Dynamic Type support.
+
+### Likes/Comments
+- **Flow**: Tap to like, type to comment, see updates.
+- **iOS Tech**:
+  - API: `POST /photo/{id}/like`, `POST /photo/{id}/comment`.
+  - Optimistic UI updates with Combine for reactivity.
+- **Scale**: Batch offline updates; debounce rapid actions.
+- **Accessibility**: Announce actions via VoiceOver.
+
+### User Profiles
+- **Flow**: View a user’s photo grid and bio.
+- **iOS Tech**:
+  - SwiftUI `View` or UIKit `UIViewController`.
+  - API: `GET /user/{id}/posts`; cache locally.
+- **Scale**: Preload frequent profiles.
+- **Accessibility**: Clear headings, readable fonts.
+
+---
+
+## Non-Functional Considerations
+
+### Scalability
+- **User Head Count**: For 1M users, paginate feeds, cache efficiently, and offload resizing to the backend.
+- **Caching**: `NSCache` for thumbnails; Core Data/Filesystem for persistence with LRU eviction.
+
+### Performance
+- Lazy-load images (`AsyncImage` or equivalent).
+- Use `BGTaskScheduler` for background syncs, avoiding main thread bottlenecks.
+
+### Accessibility
+- Leverage iOS features: VoiceOver, Dynamic Type, high-contrast mode.
+- Test with real devices for authentic feedback.
+
+### Offline Support
+- Cache recent feed in Core Data.
+- Queue uploads with `BackgroundTasks` for later sync.
+
+---
+
+## Summary
+This design delivers a photo-sharing iOS app with a SwiftUI-driven UI, `URLSession` for networking, and Core Data for caching. It scales to 1M users via pagination and smart caching, ensures accessibility with VoiceOver, and supports offline use. The backend (lightly touched here) would use S3 for photo storage and a database for metadata. This approach balances iOS-specific implementation with system-level thinking—great for interview practice!
+
+---
